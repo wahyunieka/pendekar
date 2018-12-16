@@ -1,1 +1,1 @@
-# sekolah
+# school
