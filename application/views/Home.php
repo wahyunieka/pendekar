@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<?php $title = ucwords(str_replace('_', ' ', basename($_SERVER['PHP_SELF']))); ?>
+	<title><?php echo $title; ?></title>
 	<meta charset="utf-8" />
 <?php 
 foreach($css_files as $file): ?>
@@ -13,7 +15,7 @@ foreach($css_files as $file): ?>
 body
 {
 	font-family: Arial;
-	font-size: 50px;
+	font-size: 20px;
 }
 a {
     color: green;
@@ -27,16 +29,18 @@ a:hover
 </style>
 </head>
 <body>
+	
 	<div>
-		<a href='<?php echo site_url('Baru/school_management')?>'>Home a bout school</a> |
-		<a href='<?php echo site_url('Baru/teacher_management')?>'>Teacher</a> |
-		<a href='<?php echo site_url('Baru/students_management')?>'>Students</a> |
-		<a href='<?php echo site_url('Baru/mapel_management')?>'>Mata Pelajaran</a> | 
-		<a href='<?php echo site_url('Baru/schedule_management')?>'>Schedule</a> |
-		<a href='<?php echo site_url('Baru/parents_management')?>'>Parents</a> |
-		<a href='<?php echo site_url('Baru/contact_management')?>'>Contact Us</a>|
+		<a href='<?php echo site_url('cms/school_management')?>'>Home a bout school</a> |
+		<a href='<?php echo site_url('cms/teacher_management')?>'>Teacher</a> |
+		<a href='<?php echo site_url('cms/students_management')?>'>Students</a> |
+		<a href='<?php echo site_url('cms/mapel_management')?>'>Mata Pelajaran</a> | 
+		<a href='<?php echo site_url('cms/schedule_management')?>'>Schedule</a> |
+		<a href='<?php echo site_url('cms/parents_management')?>'>Parents</a> |
+		<a href='<?php echo site_url('cms/contact_management')?>'>Contact Us</a>
 	</div>
 	<div style='height:20px;'></div>  
+	<?php echo $title; ?>
     <div>
 		<?php echo $output; ?>
     </div>
