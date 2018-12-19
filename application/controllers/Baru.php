@@ -10,7 +10,8 @@ class Baru extends CI_Controller {
 		$this->load->helper('url');
 		/* ------------------ */	
 		
-		$this->load->library('grocery_CRUD');	
+		$this->load->library('grocery_CRUD');
+			
 	}
 	
 	function _example_output($output = null)
@@ -36,8 +37,7 @@ class Baru extends CI_Controller {
 			$crud->set_table('school');
 			$crud->set_subject('school');
 			$crud->set_relation('id_sekolah','teacher','peg_id');
-			$crud->required_fields('gallery');
-			$crud->set_field_upload('file_url','assets/uploads/files');
+			$crud->set_field_upload('gallery','assets/uploads/files');
 
 			$output = $crud->render();
 
@@ -56,6 +56,8 @@ class Baru extends CI_Controller {
 
 			$output = $crud->render();
 			$this->_example_output($output);
+			
+			
 		}
  
 		
@@ -66,6 +68,7 @@ class Baru extends CI_Controller {
 			$crud->set_table('students');
 			$crud->set_subject('students');
 			$crud->set_relation('nis','mapel','mid');
+			$crud->set_field_upload('foto','assets/uploads/files');
 			
 			
 
@@ -116,6 +119,7 @@ class Baru extends CI_Controller {
 			$output = $crud->render();
 
 			$this->_example_output($output);
+			
 		}
 	function contact_management()
 		{
