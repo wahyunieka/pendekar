@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql2
--- Generation Time: Dec 18, 2018 at 04:33 PM
+-- Generation Time: Dec 19, 2018 at 08:31 AM
 -- Server version: 5.7.24
 -- PHP Version: 5.6.39
 
@@ -33,6 +33,14 @@ CREATE TABLE `tm_class` (
   `nama_ruang_kelas` varchar(45) NOT NULL,
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tm_class`
+--
+
+INSERT INTO `tm_class` (`id_class`, `nama_ruang_kelas`, `create_at`) VALUES
+(1, 'Kelas 1 A', '2018-12-19 07:10:16'),
+(2, 'Kelas 1 B', '2018-12-19 07:10:16');
 
 -- --------------------------------------------------------
 
@@ -116,11 +124,24 @@ CREATE TABLE `tm_parents` (
 CREATE TABLE `tm_school` (
   `id_sekolah` bigint(20) NOT NULL,
   `name_school` varchar(45) NOT NULL,
+  `tanggal_pendirian` date DEFAULT NULL,
+  `status_sekolah` char(10) NOT NULL,
+  `akreditasi` char(15) NOT NULL,
+  `sertifikasi` char(10) NOT NULL,
+  `kepala_sekolah` char(30) NOT NULL,
+  `alamat` longtext NOT NULL,
   `visi` longtext NOT NULL,
   `misi` longtext NOT NULL,
   `file_url` text NOT NULL,
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tm_school`
+--
+
+INSERT INTO `tm_school` (`id_sekolah`, `name_school`, `tanggal_pendirian`, `status_sekolah`, `akreditasi`, `sertifikasi`, `kepala_sekolah`, `alamat`, `visi`, `misi`, `file_url`, `create_at`) VALUES
+(1, 'SD ADINDA SURABAYA', '2008-12-01', 'Swasta', 'A', '-', 'Ujang Girik', 'JL.SIDOSERMO INDAH Gg PUSKESMAS I A SURABAYA, Kecamatan : Kec. Wonocolo, Desa/kel : Sidosermo', 'UNGGUL DALAM IMTAQ, IPTEK, DAN SANTUN DALAM PERILAKU SERTA BERWAWASAN GLOBAL.', 'Melaksanakan kegiatan belajar mengajar yang efektif. • Menumbuhkan cara berpikir kreatif dan berwawasan luas. • Bersikap santun untuk menuju sikap yang berakhlak mulia. • Mewujutkan kebiasaan positif yang berlandaskan nilai-nilai islam. • Melaksanakan praktik ibadah, bimbingan membaca Al-Qur’an, bimbingan kecerdasan spiritual, dan kecerdasan emosional sebagai wahana pemahaman terhadap nilai-nilai islam. • Membangun kompetensi siswa dalam pengembangan sains dan teknologi.', '00058-splash.png', '2018-12-19 05:28:17');
 
 -- --------------------------------------------------------
 
@@ -155,6 +176,23 @@ CREATE TABLE `tm_subjects` (
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tm_subjects`
+--
+
+INSERT INTO `tm_subjects` (`mid`, `nama_mapel`, `create_at`) VALUES
+(1, 'Bahasa Indonesia', '2018-12-19 05:22:40'),
+(2, 'Bahasa Inggris', '2018-12-19 05:23:00'),
+(3, 'Matematika', '2018-12-19 05:23:10'),
+(4, 'Fisika', '2018-12-19 05:23:18'),
+(5, 'Pendidikan Jasmani dan Rohani', '2018-12-19 05:23:37'),
+(6, 'Pendidikan Agama Islam', '2018-12-19 05:23:58'),
+(7, 'Biologi', '2018-12-19 05:24:29'),
+(8, 'Pendidikan Kewarganegaraan', '2018-12-19 05:25:03'),
+(9, 'Ilmu Pengetahuan Alam', '2018-12-19 05:25:32'),
+(10, 'Ilmu Pengetahuan Sosial', '2018-12-19 05:25:48'),
+(11, 'PPKN', '2018-12-19 05:26:13');
+
 -- --------------------------------------------------------
 
 --
@@ -176,6 +214,13 @@ CREATE TABLE `tm_teachers` (
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tm_teachers`
+--
+
+INSERT INTO `tm_teachers` (`peg_id`, `npwp`, `nama_panggilan`, `nama_depan`, `nama_tengah`, `nama_belakang`, `agama`, `jenis_kelamin`, `alamat`, `telephone`, `email`, `create_at`) VALUES
+(1, '7658755875858765875768765', 'Awan', 'Parwanto', 'Awan', 'Naters', 'Islam', 1, 'Ujung Krawang Pulo Gebang Cakung Jakarta TImur', '081294447489', 'parwanto@digitalbuana.com', '2018-12-19 07:15:18');
+
 -- --------------------------------------------------------
 
 --
@@ -196,10 +241,18 @@ CREATE TABLE `tp_extracuricullar_students` (
 CREATE TABLE `tp_school_year` (
   `id_tahun_ajaran` bigint(20) NOT NULL,
   `id_sekolah` bigint(20) NOT NULL,
+  `description` char(100) NOT NULL,
   `dari` year(4) NOT NULL,
   `sampai` year(4) NOT NULL,
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tp_school_year`
+--
+
+INSERT INTO `tp_school_year` (`id_tahun_ajaran`, `id_sekolah`, `description`, `dari`, `sampai`, `create_at`) VALUES
+(1, 1, '2018 - 2019', 2018, 2019, '2018-12-19 07:01:26');
 
 -- --------------------------------------------------------
 
@@ -256,6 +309,14 @@ CREATE TABLE `tx_schedule` (
   `jam_selesai` time NOT NULL,
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tx_schedule`
+--
+
+INSERT INTO `tx_schedule` (`sid`, `id_tahun_ajaran`, `id_class`, `peg_id`, `mid`, `tgl`, `jam_mulai`, `jam_selesai`, `create_at`) VALUES
+(4, 1, 1, 1, 1, '2018-12-19', '13:00:00', '15:00:00', '2018-12-19 07:35:46'),
+(22, 1, 2, 1, 11, '2018-12-20', '13:00:00', '14:00:00', '2018-12-19 08:08:20');
 
 --
 -- Indexes for dumped tables
@@ -363,11 +424,7 @@ ALTER TABLE `tx_extracuricullar`
 -- Indexes for table `tx_schedule`
 --
 ALTER TABLE `tx_schedule`
-  ADD PRIMARY KEY (`sid`),
-  ADD UNIQUE KEY `id_tahun_ajaran` (`id_tahun_ajaran`),
-  ADD UNIQUE KEY `id_class` (`id_class`),
-  ADD UNIQUE KEY `peg_id` (`peg_id`),
-  ADD UNIQUE KEY `mid` (`mid`);
+  ADD PRIMARY KEY (`sid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -377,7 +434,7 @@ ALTER TABLE `tx_schedule`
 -- AUTO_INCREMENT for table `tm_class`
 --
 ALTER TABLE `tm_class`
-  MODIFY `id_class` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_class` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tm_contact`
@@ -425,7 +482,7 @@ ALTER TABLE `tm_students`
 -- AUTO_INCREMENT for table `tm_subjects`
 --
 ALTER TABLE `tm_subjects`
-  MODIFY `mid` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `mid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tm_teachers`
@@ -437,7 +494,7 @@ ALTER TABLE `tm_teachers`
 -- AUTO_INCREMENT for table `tp_school_year`
 --
 ALTER TABLE `tp_school_year`
-  MODIFY `id_tahun_ajaran` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tahun_ajaran` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tx_extracuricullar`
@@ -449,7 +506,7 @@ ALTER TABLE `tx_extracuricullar`
 -- AUTO_INCREMENT for table `tx_schedule`
 --
 ALTER TABLE `tx_schedule`
-  MODIFY `sid` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `sid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
@@ -488,15 +545,6 @@ ALTER TABLE `tp_teaching_students`
 ALTER TABLE `tx_extracuricullar`
   ADD CONSTRAINT `tx_extracuricullar_ibfk_1` FOREIGN KEY (`id`) REFERENCES `tm_extracuricullar` (`id`),
   ADD CONSTRAINT `tx_extracuricullar_ibfk_2` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tp_school_year` (`id_tahun_ajaran`);
-
---
--- Constraints for table `tx_schedule`
---
-ALTER TABLE `tx_schedule`
-  ADD CONSTRAINT `tx_schedule_ibfk_1` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tp_school_year` (`id_tahun_ajaran`),
-  ADD CONSTRAINT `tx_schedule_ibfk_2` FOREIGN KEY (`id_class`) REFERENCES `tm_class` (`id_class`),
-  ADD CONSTRAINT `tx_schedule_ibfk_3` FOREIGN KEY (`peg_id`) REFERENCES `tm_teachers` (`peg_id`),
-  ADD CONSTRAINT `tx_schedule_ibfk_4` FOREIGN KEY (`mid`) REFERENCES `tm_subjects` (`mid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
