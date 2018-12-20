@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql2
--- Generation Time: Dec 19, 2018 at 08:31 AM
+-- Generation Time: Dec 20, 2018 at 06:19 PM
 -- Server version: 5.7.24
 -- PHP Version: 5.6.39
 
@@ -21,6 +21,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `sekolah`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tm_agama`
+--
+
+CREATE TABLE `tm_agama` (
+  `id_agama` bigint(20) NOT NULL,
+  `nama_agama` char(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tm_agama`
+--
+
+INSERT INTO `tm_agama` (`id_agama`, `nama_agama`) VALUES
+(1, 'Islam'),
+(2, 'Kriten Protestan'),
+(3, 'Kriten Katolik'),
+(4, 'Hindu'),
+(5, 'Budha');
 
 -- --------------------------------------------------------
 
@@ -110,7 +132,7 @@ CREATE TABLE `tm_parents` (
   `id_parents` bigint(20) NOT NULL,
   `nama` varchar(45) NOT NULL,
   `alamat` varchar(45) NOT NULL,
-  `agama` varchar(45) NOT NULL,
+  `id_agama` bigint(20) NOT NULL,
   `telephone` varchar(45) NOT NULL,
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -158,7 +180,7 @@ CREATE TABLE `tm_students` (
   `jenis_kelamin` tinyint(1) NOT NULL,
   `tempat` varchar(45) NOT NULL,
   `tanggal_lahir` date NOT NULL,
-  `agama` varchar(45) NOT NULL,
+  `id_agama` bigint(20) NOT NULL,
   `alamat` varchar(45) NOT NULL,
   `hobi` varchar(45) NOT NULL,
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -206,7 +228,7 @@ CREATE TABLE `tm_teachers` (
   `nama_depan` varchar(45) NOT NULL,
   `nama_tengah` varchar(45) NOT NULL,
   `nama_belakang` varchar(45) NOT NULL,
-  `agama` varchar(45) NOT NULL,
+  `id_agama` bigint(20) NOT NULL,
   `jenis_kelamin` tinyint(1) NOT NULL,
   `alamat` varchar(255) NOT NULL,
   `telephone` varchar(45) NOT NULL,
@@ -218,8 +240,8 @@ CREATE TABLE `tm_teachers` (
 -- Dumping data for table `tm_teachers`
 --
 
-INSERT INTO `tm_teachers` (`peg_id`, `npwp`, `nama_panggilan`, `nama_depan`, `nama_tengah`, `nama_belakang`, `agama`, `jenis_kelamin`, `alamat`, `telephone`, `email`, `create_at`) VALUES
-(1, '7658755875858765875768765', 'Awan', 'Parwanto', 'Awan', 'Naters', 'Islam', 1, 'Ujung Krawang Pulo Gebang Cakung Jakarta TImur', '081294447489', 'parwanto@digitalbuana.com', '2018-12-19 07:15:18');
+INSERT INTO `tm_teachers` (`peg_id`, `npwp`, `nama_panggilan`, `nama_depan`, `nama_tengah`, `nama_belakang`, `id_agama`, `jenis_kelamin`, `alamat`, `telephone`, `email`, `create_at`) VALUES
+(1, '7658755875858765875768765', 'Awan', 'Parwanto', 'Awan', 'Naters', 1, 1, 'Ujung Krawang Pulo Gebang Cakung Jakarta TImur', '081294447489', 'parwanto@digitalbuana.com', '2018-12-19 07:15:18');
 
 -- --------------------------------------------------------
 
@@ -323,6 +345,12 @@ INSERT INTO `tx_schedule` (`sid`, `id_tahun_ajaran`, `id_class`, `peg_id`, `mid`
 --
 
 --
+-- Indexes for table `tm_agama`
+--
+ALTER TABLE `tm_agama`
+  ADD PRIMARY KEY (`id_agama`);
+
+--
 -- Indexes for table `tm_class`
 --
 ALTER TABLE `tm_class`
@@ -356,7 +384,8 @@ ALTER TABLE `tm_food_menu`
 -- Indexes for table `tm_parents`
 --
 ALTER TABLE `tm_parents`
-  ADD PRIMARY KEY (`id_parents`);
+  ADD PRIMARY KEY (`id_parents`),
+  ADD KEY `id_agama` (`id_agama`) USING BTREE;
 
 --
 -- Indexes for table `tm_school`
@@ -368,7 +397,8 @@ ALTER TABLE `tm_school`
 -- Indexes for table `tm_students`
 --
 ALTER TABLE `tm_students`
-  ADD PRIMARY KEY (`nis`);
+  ADD PRIMARY KEY (`nis`),
+  ADD KEY `id_agama` (`id_agama`);
 
 --
 -- Indexes for table `tm_subjects`
@@ -380,7 +410,8 @@ ALTER TABLE `tm_subjects`
 -- Indexes for table `tm_teachers`
 --
 ALTER TABLE `tm_teachers`
-  ADD PRIMARY KEY (`peg_id`);
+  ADD PRIMARY KEY (`peg_id`),
+  ADD KEY `id_agama` (`id_agama`);
 
 --
 -- Indexes for table `tp_extracuricullar_students`
@@ -424,11 +455,21 @@ ALTER TABLE `tx_extracuricullar`
 -- Indexes for table `tx_schedule`
 --
 ALTER TABLE `tx_schedule`
-  ADD PRIMARY KEY (`sid`);
+  ADD PRIMARY KEY (`sid`),
+  ADD KEY `id_tahun_ajaran` (`id_tahun_ajaran`),
+  ADD KEY `id_class` (`id_class`),
+  ADD KEY `peg_id` (`peg_id`),
+  ADD KEY `mid` (`mid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `tm_agama`
+--
+ALTER TABLE `tm_agama`
+  MODIFY `id_agama` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tm_class`
@@ -513,6 +554,24 @@ ALTER TABLE `tx_schedule`
 --
 
 --
+-- Constraints for table `tm_parents`
+--
+ALTER TABLE `tm_parents`
+  ADD CONSTRAINT `tm_parents_ibfk_1` FOREIGN KEY (`id_agama`) REFERENCES `tm_agama` (`id_agama`);
+
+--
+-- Constraints for table `tm_students`
+--
+ALTER TABLE `tm_students`
+  ADD CONSTRAINT `tm_students_ibfk_1` FOREIGN KEY (`id_agama`) REFERENCES `tm_agama` (`id_agama`);
+
+--
+-- Constraints for table `tm_teachers`
+--
+ALTER TABLE `tm_teachers`
+  ADD CONSTRAINT `tm_teachers_ibfk_1` FOREIGN KEY (`id_agama`) REFERENCES `tm_agama` (`id_agama`);
+
+--
 -- Constraints for table `tp_extracuricullar_students`
 --
 ALTER TABLE `tp_extracuricullar_students`
@@ -545,6 +604,15 @@ ALTER TABLE `tp_teaching_students`
 ALTER TABLE `tx_extracuricullar`
   ADD CONSTRAINT `tx_extracuricullar_ibfk_1` FOREIGN KEY (`id`) REFERENCES `tm_extracuricullar` (`id`),
   ADD CONSTRAINT `tx_extracuricullar_ibfk_2` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tp_school_year` (`id_tahun_ajaran`);
+
+--
+-- Constraints for table `tx_schedule`
+--
+ALTER TABLE `tx_schedule`
+  ADD CONSTRAINT `tx_schedule_ibfk_1` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tp_school_year` (`id_tahun_ajaran`),
+  ADD CONSTRAINT `tx_schedule_ibfk_2` FOREIGN KEY (`id_class`) REFERENCES `tm_class` (`id_class`),
+  ADD CONSTRAINT `tx_schedule_ibfk_3` FOREIGN KEY (`peg_id`) REFERENCES `tm_teachers` (`peg_id`),
+  ADD CONSTRAINT `tx_schedule_ibfk_4` FOREIGN KEY (`mid`) REFERENCES `tm_subjects` (`mid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
