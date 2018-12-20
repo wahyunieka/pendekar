@@ -521,3 +521,11 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+// showing table column
+$config['column_sekolah'] = array('name_school','tanggal_pendirian', 'status_sekolah', 'akreditasi', 'sertifikasi', 'kepala_sekolah', 'alamat', 'visi','misi','file_url');
+$config['column_teacher'] = array('npwp','nama_depan','nama_tengah','nama_belakang', 'jenis_kelamin', 'agama', 'alamat', 'telephone', 'email');
+$config['column_student'] = array('nama_panggilan','nama_depan','nama_tengah','nama_belakang', 'jenis_kelamin', 'tempat', 'tanggal_lahir', 'agama', 'alamat', 'hobi');
+$config['column_subject'] = array('nama_mapel');
+$config['column_schedule'] = array('id_tahun_ajaran', 'id_class', 'peg_id', 'mid', 'tgl', 'jam_mulai', 'jam_selesai');
+$config['column_parent'] = array('nama', 'alamat', 'id_agama', 'telephone');

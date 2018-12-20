@@ -170,6 +170,18 @@ class Cms extends CI_Controller {
 			
 		$this->crud->set_table('tm_parents');
 		$this->crud->set_subject('Parents');
+
+		// menampilkan kolom yang ada di list
+		$this->crud->columns($this->config->item('column_parent'));
+		// menampilkan kolom yang boleh di add dan edit
+		$this->crud->add_fields($this->config->item('column_parent'));
+		$this->crud->edit_fields($this->config->item('column_parent'));
+
+		$this->crud->set_relation_n_n('childs', 'tp_strudent_parent', 'tm_students', 'id_parents', 'nis', 'nama_panggilan');
+
+		// dropdown tahun ajaran
+		$this->crud->display_as('id_agama','Agama');
+		$this->crud->set_relation('id_agama','tm_agama','{nama_agama}', null, 'id_agama');
 		
 		$output = $this->crud->render();
 
