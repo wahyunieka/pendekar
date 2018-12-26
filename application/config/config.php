@@ -35,7 +35,7 @@ $config['base_url'] = 'http://202.56.162.67:8080';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
